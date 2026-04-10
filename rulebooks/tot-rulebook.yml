@@ -1,0 +1,15 @@
+---
+- name: Monitor httpd and trigger Arduino remediation
+  hosts: all
+  sources:
+    - ansible.eda.url_check:
+        urls:
+          - http://192.168.122.158
+        delay: 10
+
+  rules:
+    - name: If httpd is unreachable, deploy Arduino code
+      condition: event.status == "down"
+      action:
+        run_playbook:
+          name: remediate.yml
