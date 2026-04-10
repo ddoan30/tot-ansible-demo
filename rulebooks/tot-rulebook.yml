@@ -1,6 +1,6 @@
 ---
 - name: Monitor httpd and trigger Arduino remediation
-  hosts: all
+  hosts: vm2.lab.local
   sources:
     - ansible.eda.url_check:
         urls:
