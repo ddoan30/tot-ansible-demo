@@ -4,7 +4,7 @@
   become: yes
   vars:
     ansible_become_user: shadow
-    ansible_become_password: "{{ become_pw }}"
+    ansible_become_password: redhat
   tasks:
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
