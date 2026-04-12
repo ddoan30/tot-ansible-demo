@@ -1,0 +1,8 @@
+---
+- name: Remediation - Flash Arduino to Signal Failure
+  hosts: vm1.lab.local
+  become: yes
+  tasks:
+    - name: Compile and Upload Remediation Sketch
+      ansible.builtin.shell: |
+        arduino-cli help
