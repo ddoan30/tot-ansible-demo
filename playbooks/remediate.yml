@@ -2,6 +2,10 @@
 - name: Remediation - Flash Arduino to Signal Failure
   hosts: vm1.lab.local
   become: yes
+  vars:
+    ansible_become_user: shadow
+    ansible_become_password: redhat
+    
   tasks:
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
