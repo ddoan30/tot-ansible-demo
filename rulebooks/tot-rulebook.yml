@@ -11,5 +11,5 @@
     - name: If httpd is unreachable, deploy Arduino code
       condition: event.status == "down"
       action:
-        run_playbook:
+        run_job_template:
           name: remediate.yml
