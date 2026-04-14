@@ -8,10 +8,17 @@
     
   tasks:
     - name: Stop relay to free up the serial port
-      ansible.builtin.shell: "pkill -f socat || true"
-      register: result
-      failed_when: "result.rc >= 2"
-      become: yes
+      ansible.builtin.systemd:
+        name: arduino-exporter
+        state: stopped
+      ignore_errors: yes
+      
+    - name: Stop relay to free up the serial port
+      ansible.builtin.systemd:
+        name: arduino-receiver
+        state: stopped
+      delegate_to: vm2.lab.local
+      ignore_errors: yes
       
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
@@ -24,20 +31,23 @@
         arduino-cli compile --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
         arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
       register: upload_result
-      
-    - name: Restart relay (VM1 side)
-      ansible.builtin.shell: "sudo socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600 &"
-      async: 10
-      poll: 0
-      become: yes
-      
-    - name: Restart relay (VM2 side)
-      ansible.builtin.shell: |
-        sudo socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000
-      async: 10
-      poll: 0
-      delegate_to: "vm2.lab.local"
-      become: yes
+    
+    - name: Pause for serial hardware to settle
+      ansible.builtin.pause:
+        seconds: 2
+        
+    - name: Restart Exporter Service (VM1)
+      ansible.builtin.systemd:
+        name: arduino-exporter
+        state: started
+      when: upload_result.rc == 0
+
+    - name: Restart Receiver Service (VM2)
+      ansible.builtin.systemd:
+        name: arduino-receiver
+        state: started
+      delegate_to: vm2.lab.local
+      when: upload_result.rc == 0
       
     - name: Log the deployment
       ansible.builtin.debug:
