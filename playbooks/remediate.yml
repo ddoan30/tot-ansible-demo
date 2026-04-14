@@ -7,6 +7,10 @@
     ansible_become_password: redhat
     
   tasks:
+    - name: Kill the process directly to break the lock
+      ansible.builtin.shell: "pkill -9 socat || true"
+      become: yes
+      
     - name: Stop relay to free up the serial port
       ansible.builtin.systemd:
         name: arduino-exporter.service
