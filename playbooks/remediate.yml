@@ -7,27 +7,31 @@
     ansible_become_password: redhat
     
   tasks:
-    - name: Kill the process directly to break the lock
+    - name: Kill socat on VM1
       ansible.builtin.shell: "pkill -9 socat || true"
       become: yes
-      
+    
+    - name: Kill socat on VM2
+      ansible.builtin.shell: "pkill -9 socat || true"
+      delegate_to: vm2.lab.local
+      become: yes
     # - name: Stop relay to free up the serial port
     #   ansible.builtin.systemd:
     #     name: arduino-exporter.service
     #     state: stopped
     #   become: yes
       
-    - name: Stop relay without waiting for confirmation
-      ansible.builtin.command:
-        cmd: "systemctl stop arduino-exporter --no-block"
-      become: yes
+    # - name: Stop relay without waiting for confirmation
+    #   ansible.builtin.command:
+    #     cmd: "systemctl stop arduino-exporter --no-block"
+    #   become: yes
       
-    - name: Stop relay to free up the serial port
-      ansible.builtin.systemd:
-        name: arduino-receiver.service
-        state: stopped
-      delegate_to: vm2.lab.local
-      become: yes
+    # - name: Stop relay to free up the serial port
+    #   ansible.builtin.systemd:
+    #     name: arduino-receiver.service
+    #     state: stopped
+    #   delegate_to: vm2.lab.local
+    #   become: yes
       
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
@@ -45,18 +49,26 @@
       ansible.builtin.pause:
         seconds: 2
         
-    - name: Restart Exporter Service (VM1)
-      ansible.builtin.systemd:
-        name: arduino-exporter
-        state: started
-      when: upload_result.rc == 0
+    # - name: Restart Exporter Service (VM1)
+    #   ansible.builtin.systemd:
+    #     name: arduino-exporter
+    #     state: started
+    #   when: upload_result.rc == 0
 
-    - name: Restart Receiver Service (VM2)
-      ansible.builtin.systemd:
-        name: arduino-receiver
-        state: started
+    # - name: Restart Receiver Service (VM2)
+    #   ansible.builtin.systemd:
+    #     name: arduino-receiver
+    #     state: started
+    #   delegate_to: vm2.lab.local
+    #   when: upload_result.rc == 0
+    - name: Kill socat on VM1
+      ansible.builtin.shell: "socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600"
+      become: yes
+    
+    - name: Kill socat on VM2
+      ansible.builtin.shell: "socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000"
       delegate_to: vm2.lab.local
-      when: upload_result.rc == 0
+      become: yes
       
     - name: Log the deployment
       ansible.builtin.debug:
