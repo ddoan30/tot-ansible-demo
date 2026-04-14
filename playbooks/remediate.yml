@@ -84,7 +84,11 @@
       poll: 0
       delegate_to: vm2.lab.local
       become: yes
-      
+    
+    - name: Pause for serial hardware to settle
+      ansible.builtin.pause:
+        seconds: 5
+        
     - name: Log the deployment
       ansible.builtin.debug:
         msg: "Arduino remediate.ino deployed successfully! Normal behavior resumed."
