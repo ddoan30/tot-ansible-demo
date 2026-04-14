@@ -12,4 +12,4 @@
       condition: event.status == "down"
       action:
         run_job_template:
-          name: remediate.yml
+          name: "remediate"
