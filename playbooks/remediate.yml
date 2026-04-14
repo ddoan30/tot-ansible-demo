@@ -9,6 +9,8 @@
   tasks:
     - name: Stop relay to free up the serial port
       ansible.builtin.shell: "pkill -f socat || true"
+      register: result
+      failed_when: "result.rc >= 2"
       become: yes
       
     - name: Compile and Upload Remediation Sketch
