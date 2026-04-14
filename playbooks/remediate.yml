@@ -11,6 +11,7 @@
       ansible.builtin.systemd:
         name: arduino-exporter.service
         state: stopped
+      become: yes
       
     - name: Stop relay to free up the serial port
       ansible.builtin.systemd:
