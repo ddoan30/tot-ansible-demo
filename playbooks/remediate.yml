@@ -7,6 +7,10 @@
     ansible_become_password: redhat
     
   tasks:
+    - name: Stop relay to free up the serial port
+      ansible.builtin.shell: "pkill -f socat || true"
+      become: yes
+      
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
         arduino-cli compile --fqbn arduino:avr:uno /home/shadow/Arduino/remediate_light/remediate_light.ino
@@ -18,6 +22,20 @@
         arduino-cli compile --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
         arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
       register: upload_result
+      
+    - name: Restart relay (VM1 side)
+      ansible.builtin.shell: "sudo socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600 &"
+      async: 10
+      poll: 0
+      become: yes
+      
+    - name: Restart relay (VM2 side)
+      ansible.builtin.shell: |
+        sudo socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000
+      async: 10
+      poll: 0
+      delegate_to: "vm2.lab.local"
+      become: yes
       
     - name: Log the deployment
       ansible.builtin.debug:
