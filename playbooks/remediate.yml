@@ -61,12 +61,27 @@
     #     state: started
     #   delegate_to: vm2.lab.local
     #   when: upload_result.rc == 0
-    - name: Kill socat on VM1
-      ansible.builtin.shell: "socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600"
-      become: yes
+    # - name: Start socat on VM1
+    #   ansible.builtin.shell: "socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600"
+    #   become: yes
     
-    - name: Kill socat on VM2
-      ansible.builtin.shell: "socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000"
+    # - name: Start socat on VM2
+    #   ansible.builtin.shell: "socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000"
+    #   delegate_to: vm2.lab.local
+    #   become: yes
+    
+    - name: Start socat on VM1 (Listener)
+      ansible.builtin.shell: |
+        nohup socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600 > /dev/null 2>&1 &
+      async: 10
+      poll: 0
+      become: yes
+
+    - name: Start socat on VM2 (Connector)
+      ansible.builtin.shell: |
+        nohup socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000 > /dev/null 2>&1 &
+      async: 10
+      poll: 0
       delegate_to: vm2.lab.local
       become: yes
       
