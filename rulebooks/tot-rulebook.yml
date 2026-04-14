@@ -5,6 +5,7 @@
     - ansible.eda.url_check:
         urls:
           - https://vm2.lab.local
+        verify_ssl: false
         delay: 3
 
   rules:
