@@ -9,16 +9,16 @@
   tasks:
     - name: Stop relay to free up the serial port
       ansible.builtin.systemd:
-        name: arduino-exporter
+        name: arduino-exporter.service
         state: stopped
-      ignore_errors: yes
+        enabled: no
       
     - name: Stop relay to free up the serial port
       ansible.builtin.systemd:
-        name: arduino-receiver
+        name: arduino-receiver.service
         state: stopped
       delegate_to: vm2.lab.local
-      ignore_errors: yes
+      become: yes
       
     - name: Compile and Upload Remediation Sketch
       ansible.builtin.shell: |
