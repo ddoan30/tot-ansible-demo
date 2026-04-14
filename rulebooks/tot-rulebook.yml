@@ -4,7 +4,7 @@
   sources:
     - ansible.eda.url_check:
         urls:
-          - http://192.168.122.158
+          - https://vm2.lab.local
         delay: 3
 
   rules:
