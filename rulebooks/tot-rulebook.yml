@@ -8,6 +8,11 @@
         delay: 10
 
   rules:
+    - name: Debug all incoming events
+      condition: event.status != ""  # Catch-all condition
+      action:
+        debug:
+        
     - name: If httpd is unreachable, deploy Arduino code
       condition: event.status == "down"
       action:
