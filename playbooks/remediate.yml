@@ -11,10 +11,15 @@
       ansible.builtin.shell: "pkill -9 socat || true"
       become: yes
       
-    - name: Stop relay to free up the serial port
-      ansible.builtin.systemd:
-        name: arduino-exporter.service
-        state: stopped
+    # - name: Stop relay to free up the serial port
+    #   ansible.builtin.systemd:
+    #     name: arduino-exporter.service
+    #     state: stopped
+    #   become: yes
+      
+    - name: Stop relay without waiting for confirmation
+      ansible.builtin.command:
+        cmd: "systemctl stop arduino-exporter --no-block"
       become: yes
       
     - name: Stop relay to free up the serial port
