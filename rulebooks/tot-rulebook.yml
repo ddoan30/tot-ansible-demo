@@ -5,6 +5,7 @@
     - ansible.eda.url_check:
         urls:
           - https://192.168.122.158
+        verify_ssl: false
         delay: 10
 
   rules:
