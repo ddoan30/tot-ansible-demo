@@ -10,15 +10,8 @@
     - name: Ensure httpd service is started
       ansible.builtin.systemd:
         name: httpd
-        state: started
-      register: service_result
-      ignore_errors: yes
-
-    - name: Debug service failure
-      ansible.builtin.debug:
-        var: service_result
-      when: service_result is failed
-
+        state: restarted
+ 
     - name: Log the deployment
       ansible.builtin.debug:
         msg: "Arduino remediate.ino deployed successfully! Normal behavior resumed."
