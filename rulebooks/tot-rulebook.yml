@@ -6,7 +6,7 @@
         urls:
           - https://192.168.122.158
         verify_ssl: false
-        delay: 2
+        delay: 1
 
   rules:
     # - name: Debug all incoming events
