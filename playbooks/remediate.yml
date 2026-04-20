@@ -7,92 +7,11 @@
     ansible_become_password: redhat
     
   tasks:
-      - name: Ensure httpd service is stopped
-        ansible.builtin.service:
-        name: httpd
-        state: started
-    # - name: Kill socat on VM1
-    #   ansible.builtin.shell: "pkill -9 socat || true"
-    #   become: yes
-    
-    # - name: Kill socat on VM2
-    #   ansible.builtin.shell: "pkill -9 socat || true"
-    #   delegate_to: vm2.lab.local
-    #   become: yes
-    # - name: Stop relay to free up the serial port
-    #   ansible.builtin.systemd:
-    #     name: arduino-exporter.service
-    #     state: stopped
-    #   become: yes
-      
-    # - name: Stop relay without waiting for confirmation
-    #   ansible.builtin.command:
-    #     cmd: "systemctl stop arduino-exporter --no-block"
-    #   become: yes
-      
-    # - name: Stop relay to free up the serial port
-    #   ansible.builtin.systemd:
-    #     name: arduino-receiver.service
-    #     state: stopped
-    #   delegate_to: vm2.lab.local
-    #   become: yes
-      
-    # - name: Compile and Upload Remediation Sketch on VM2
-    #   ansible.builtin.shell: |
-    #     arduino-cli compile --fqbn arduino:avr:uno /home/shadow/Arduino/remediate_light/remediate_light.ino
-    #     arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno /home/shadow/Arduino/remediate_light/remediate_light.ino
-    #   register: upload_result
+    - name: Ensure httpd service is stopped
+      ansible.builtin.service:
+      name: httpd
+      state: started
 
-    # - name: Compile and Upload Default Sketch on VM2
-    #   ansible.builtin.shell: |
-    #     arduino-cli compile --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
-    #     arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno /home/shadow/Arduino/unsecured_scenario/unsecured_scenario.ino
-    #   register: upload_result
-    
-    # - name: Pause for serial hardware to settle
-    #   ansible.builtin.pause:
-    #     seconds: 2
-        
-    # - name: Restart Exporter Service (VM1)
-    #   ansible.builtin.systemd:
-    #     name: arduino-exporter
-    #     state: started
-    #   when: upload_result.rc == 0
-
-    # - name: Restart Receiver Service (VM2)
-    #   ansible.builtin.systemd:
-    #     name: arduino-receiver
-    #     state: started
-    #   delegate_to: vm2.lab.local
-    #   when: upload_result.rc == 0
-    # - name: Start socat on VM1
-    #   ansible.builtin.shell: "socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600"
-    #   become: yes
-    
-    # - name: Start socat on VM2
-    #   ansible.builtin.shell: "socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000"
-    #   delegate_to: vm2.lab.local
-    #   become: yes
-    
-    # - name: Start socat on VM1 (Listener)
-    #   ansible.builtin.shell: |
-    #     nohup socat TCP-LISTEN:2000,reuseaddr,fork FILE:/dev/ttyACM0,raw,echo=0,b9600 > /dev/null 2>&1 &
-    #   async: 10
-    #   poll: 0
-    #   become: yes
-
-    # - name: Start socat on VM2 (Connector)
-    #   ansible.builtin.shell: |
-    #     nohup socat PTY,link=/dev/ttyV0,raw,echo=0 TCP:192.168.122.241:2000 > /dev/null 2>&1 &
-    #   async: 10
-    #   poll: 0
-    #   delegate_to: vm2.lab.local
-    #   become: yes
-    
-    # - name: Pause for serial hardware to settle
-    #   ansible.builtin.pause:
-    #     seconds: 5
-        
     - name: Log the deployment
       ansible.builtin.debug:
         msg: "Arduino remediate.ino deployed successfully! Normal behavior resumed."
