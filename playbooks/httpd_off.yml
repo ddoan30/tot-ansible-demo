@@ -2,6 +2,10 @@
 - name: Remediation Playbook - Stop Web Server
   hosts: vm2.lab.local
   become: yes  # Ensures Ansible runs commands with root privileges
+  vars:
+      ansible_become_user: shadow
+      ansible_become_password: redhat
+      
   tasks:
     - name: Ensure httpd service is stopped
       ansible.builtin.service:
