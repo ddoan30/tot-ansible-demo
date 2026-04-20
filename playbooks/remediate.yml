@@ -11,6 +11,7 @@
       ansible.builtin.systemd:
         name: httpd
         state: started
+        enabled: yes
       become: true
  
     - name: Log the deployment
