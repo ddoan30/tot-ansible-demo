@@ -17,5 +17,5 @@
     - name: Log the deployment
       ansible.builtin.debug:
         msg: "Arduino remediate.ino deployed successfully! Normal behavior resumed."
-      when: upload_result.rc == 0
+      #when: upload_result.rc == 0
       
