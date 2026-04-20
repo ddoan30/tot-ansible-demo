@@ -13,7 +13,7 @@
       condition: event.url_check is defined
       action:
         debug:
-          msg: "Full Event: {{ event | to_json }}"
+          var: event
         
     - name: If httpd is unreachable, deploy Arduino code
       condition: event.url_check.status == "down"
