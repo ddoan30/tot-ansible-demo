@@ -1,0 +1,14 @@
+---
+- name: Remediation Playbook - Stop Web Server
+  hosts: vm2.lab.local
+  become: yes  # Ensures Ansible runs commands with root privileges
+  tasks:
+    - name: Ensure httpd service is stopped
+      ansible.builtin.service:
+        name: httpd
+        state: stopped
+    
+    - name: Verify service status
+      ansible.builtin.command: systemctl is-active httpd
+      register: service_status
+      failed_when: false
