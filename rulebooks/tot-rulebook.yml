@@ -9,12 +9,6 @@
         delay: 1
 
   rules:
-    # - name: Debug all incoming events
-    #   condition: event.url_check is defined
-    #   action:
-    #     debug:
-    #       var: event
-        
     - name: If httpd is unreachable, deploy Arduino code
       condition: event.url_check.status == "down"
       action:
