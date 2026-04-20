@@ -11,7 +11,7 @@
       ansible.builtin.systemd:
         name: httpd
         state: restarted
-      become: yes
+      become: true
  
     - name: Log the deployment
       ansible.builtin.debug:
