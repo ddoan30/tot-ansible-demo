@@ -7,7 +7,7 @@
     ansible_become_password: redhat
     
   tasks:
-    - name: Ensure httpd service is stopped
+    - name: Ensure httpd service is started
       ansible.builtin.service:
         name: httpd
         state: started
