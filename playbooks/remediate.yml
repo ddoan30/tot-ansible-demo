@@ -10,7 +10,7 @@
     - name: Ensure httpd service is started
       ansible.builtin.systemd:
         name: httpd
-        state: restarted
+        state: started
       become: true
  
     - name: Log the deployment
