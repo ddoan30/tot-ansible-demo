@@ -9,8 +9,8 @@
   tasks:
     - name: Ensure httpd service is stopped
       ansible.builtin.service:
-      name: httpd
-      state: started
+        name: httpd
+        state: started
 
     - name: Log the deployment
       ansible.builtin.debug:
