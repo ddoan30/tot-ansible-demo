@@ -2,9 +2,9 @@
 - name: Remediation
   hosts: vm2.lab.local
   become: yes
-  vars:
-    ansible_become_user: shadow
-    ansible_become_password: redhat
+  # vars:
+  #   ansible_become_user: shadow
+  #   ansible_become_password: redhat
     
   tasks:
     - name: Ensure httpd service is started
