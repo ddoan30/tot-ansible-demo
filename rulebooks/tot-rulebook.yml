@@ -6,7 +6,7 @@
         urls:
           - https://192.168.122.158
         verify_ssl: false
-        delay: 1
+        delay: 2
 
   rules:
     - name: If httpd is unreachable, deploy Arduino code
