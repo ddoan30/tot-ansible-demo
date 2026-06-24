@@ -1,6 +1,6 @@
 ---
 - name: Remediation
-  hosts: vm2.lab.local
+  hosts: vm3.lab.local
   become: yes
   gather_facts: no
   
@@ -14,6 +14,6 @@
  
     - name: Log the deployment
       ansible.builtin.debug:
-        msg: "Arduino remediate.ino deployed successfully! Normal behavior resumed."
+        msg: "httpd service restored. Normal behavior resumed."
       #when: upload_result.rc == 0
       
