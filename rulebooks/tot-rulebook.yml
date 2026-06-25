@@ -4,9 +4,8 @@
   sources:
     - ansible.eda.url_check:
         urls:
-          - https://192.168.122.158
-        verify_ssl: false
-        delay: 2
+          - http://192.168.122.149
+        delay: 1
 
   rules:
     - name: If httpd is unreachable, deploy Arduino code
