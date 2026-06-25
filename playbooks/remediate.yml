@@ -1,6 +1,6 @@
 ---
 - name: Remediation
-  hosts: vm3.lab.local
+  hosts: vm2.lab.local
   become: yes
   gather_facts: no
   
