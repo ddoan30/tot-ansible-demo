@@ -3,8 +3,9 @@
   hosts: vm2.lab.local
   become: yes
   gather_facts: no
-  # vars:
-  #   ansible_ssh_pipelining: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_ssh_pipelining: true
     
   tasks:
     - name: Ensure httpd service is started
