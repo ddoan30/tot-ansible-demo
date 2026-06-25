@@ -1,9 +1,11 @@
 ---
 - name: Remediation
-  hosts: vm2.lab.local
+  hosts: vm3.lab.local
   become: yes
   gather_facts: no
-  
+  vars:
+    ansible_ssh_pipelining: true
+    
   tasks:
     - name: Ensure httpd service is started
       ansible.builtin.systemd:
