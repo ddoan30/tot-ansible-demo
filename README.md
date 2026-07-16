@@ -34,25 +34,34 @@ I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just n
 
 <ol start=1>
   <li>Register your system: <code>$ subscription-manager register</code> and follow prompts</li>
+  
   <li><a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/containerized_ansible_automation_platform_installation_guide/aap-containerized-installation#downloading-containerizzed-aap_aap-containerized-installation)">Install AAP containerized</a></li>
   <ul>
     <li>Feel free to reference <code>inventory-growth.ini</code> as needed. </li>
   </ul>
+  
   <li>Access your AAP Gateway Link (the link to your platform console) and open in a browser</li>
+  
   <li>Add target node as a host in AAP Inventory</li>
   <ul>
     <li>Infrastructure > Inventories > Create inventory > Create your own inventory > </li>
     <li>Navigate to new inventory > Hosts > Create host > use FQDN of target host as Hostname </li>
     <li>Follow prompts and check that target node is listed in Hosts </li>
   </ul>
+  
   <li>Create a project to sync with a Git(hub) repo</li>
   <ul>
     <li>Projects > Create project > Fill in form, selecting Default if applicable</li>
     <li>Source control type: Git</li>
     <li>Source control URL: 	&lt; link to your Git(hub) repo, forked from this one &gt;</li>
     <li>Create project</li>
+    <img src="https://github.com/ddoan30/tot-ansible-demo/blob/main/extras/AAP_Projects.png" alt="Screenshot of Projects tab" width=70%>
   </ul>
-  
+
+  <li>Create an Event-Driven Ansible (EDA) Rulebook Activation</li>
+  <ul>
+    <li></li>
+  </ul>
 </ol>
 
 </body>
