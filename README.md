@@ -45,6 +45,13 @@ I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just n
     <li>Navigate to new inventory > Hosts > Create host > use FQDN of target host as Hostname </li>
     <li>Follow prompts and check that target node is listed in Hosts </li>
   </ul>
+  <li>Create a project to sync with a Git(hub) repo</li>
+  <ul>
+    <li>Projects > Create project > Fill in form, selecting Default if applicable</li>
+    <li>Source control type: Git</li>
+    <li>Source control URL: 	&lt; link to your Git(hub) repo, forked from this one &gt;</li>
+    <li>Create project</li>
+  </ul>
   
 </ol>
 
