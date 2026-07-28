@@ -8,14 +8,15 @@
     ansible_ssh_pipelining: true
     
   tasks:
-    - name: 
-      ansible.builtin.shell: touch test.txt
-    # - name: Ensure httpd service is started
-    #   ansible.builtin.systemd:
-    #     name: httpd
-    #     state: started
-    #     enabled: yes
-    #   become: true
+    # - name: 
+    #   ansible.builtin.shell: touch test.txt
+      
+    - name: Ensure httpd service is started
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: yes
+      become: true
  
     - name: Log the deployment
       ansible.builtin.debug:
