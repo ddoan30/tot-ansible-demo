@@ -25,6 +25,7 @@ I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just n
     <li> <code>$ sudo flatpak run cc.arduino.IDE2</code> </li>
     <li> <code>$ sudo usermod -a -G dialout $USER</code></li>
   </ul>
+  <li>Copy <code>sync.py</code> into a Python file in your working directory</li>
 </ol>
 <br>
 
@@ -98,5 +99,21 @@ I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just n
 </ol>
 
 <h4> Configuring #3 </h4>
+
+Required materials:
+<ul>
+  <li><a href="https://a.co/d/00f5Qi8j"> Male-to-Female AND Female-to-Female jumper wires</a></li>
+  <li><a href="https://a.co/d/0fSAb0L7"> 5V One Channel Relay Module</a></li>
+  <li><a href="https://a.co/d/05urYmhj"> Compacitive Touch Switch Module Sensor</a></li>
+  <li><a href="https://a.co/d/05kAb3pX"> Light Bulb Socket with Cord</a></li>
+  <li><a href="https://a.co/d/00LMoqxC"> Arduino UNO board</a></li>
+</ul>
+
+<img src="https://github.com/ddoan30/tot-ansible-demo/blob/main/extras/Sample_Circuit_Diagram.png" alt="My Circuit Diagram" width=80%>
+
+<hr />
+
+<h2>Running the Demo</h2>
+
 
 </body>
