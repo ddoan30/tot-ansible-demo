@@ -8,9 +8,6 @@
     ansible_ssh_pipelining: true
     
   tasks:
-    # - name: 
-    #   ansible.builtin.shell: touch test.txt
-      
     - name: Ensure httpd service is started
       ansible.builtin.systemd:
         name: httpd
