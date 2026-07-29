@@ -18,20 +18,21 @@ void loop(){
   int currentSensorStatus = digitalRead(sensor);
   int currentRelayStatus = digitalRead(relay);
   incoming = Serial.readStringUntil('\n');
-  
+
+  // turns light on if reads OK from serial -- sync.py sends "OK"
   if (incoming == "OK"){
     digitalWrite(relay, LOW);
   }
 
-  // Only run if the state has changed
+  // only run if the state has changed
   if (currentSensorStatus != lastSensorStatus) {
-    if (currentSensorStatus == HIGH) {
+    if (currentSensorStatus == HIGH) { //if sensor touched, print 67 to serial
       digitalWrite(relay, HIGH); 
-      Serial.println("sixseven"); // Send ONCE when triggered
+      Serial.println("sixseven"); 
     } 
     
     // Update the tracker
     lastSensorStatus = currentSensorStatus;
-    delay(50); // Small debounce to prevent noise
+    delay(50); 
   }
 }
