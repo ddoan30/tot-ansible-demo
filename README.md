@@ -95,6 +95,7 @@ Required materials:
 
 <img src="https://github.com/ddoan30/tot-ansible-demo/blob/main/extras/Sample_Circuit_Diagram.png" alt="My Circuit Diagram" width=80%>
 
+<i> Correction: I meant pin 8 instead of pin 6, but if you're using pin 6, just update it in the Arduino code. Sorry for the confusion!</i>
 <h4> Configuring #3 </h4>
 
 I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just need at least 4GB of RAM and sufficient memory for Arduino IDE installation (~600MB but be generous).
@@ -109,7 +110,7 @@ I am using a RHEL 9.7 VM on my laptop running Fedora. Generally, you will just n
     <li> <code>$ sudo usermod -a -G dialout $USER</code></li>
   </ul>
   <li>Copy <code>sync.py</code> into a Python file in your working directory</li>
-  <li>Use Arduino IDE to load <code>default_light_behavior.ino</code> onto Arduino UNO (found under <i>arduino-code</i>)</li>
+  <li>Use Arduino IDE to load <code>tot_scenario.ino</code> onto Arduino UNO (found under <i>arduino-code</i>)</li>
 </ol>
 <br>
 <hr />
